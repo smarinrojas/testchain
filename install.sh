@@ -1,30 +1,21 @@
-#!/bin/bash
 
-# Exit immediately if a command exits with a non-zero status.
-set -e
+# --- Python Virtual Environment Setup ---
+VENV_DIR="venv"
 
-# Update package lists
-echo "Updating package lists..."
-sudo apt-get update
+if [ ! -d "$VENV_DIR" ]; then
+    print_info "Creating Python virtual environment in '$VENV_DIR'..."
+    python3 -m venv "$VENV_DIR"
+else
+    print_info "Virtual environment '$VENV_DIR' already exists."
+fi
 
-# Install git
-echo "Installing git..."
-sudo apt-get install -y git
+# --- Activate Virtual Environment and Install Dependencies ---
+print_info "Activating virtual environment and installing dependencies from requirements.txt..."
+source "$VENV_DIR/bin/activate"
 
-# Install python3-pip
-echo "Installing python3-pip..."
-sudo apt-get install -y python3-pip
-``
-# Add Ethereum PPA
-echo "Adding Ethereum PPA..."
-sudo add-apt-repository -y ppa:ethereum/ethereum
+pip install -r requirements.txt
 
-# Update package lists again after adding new PPA
-echo "Updating package lists again..."
-sudo apt-get update
-
-# Install Ethereum (geth)
-echo "Installing Ethereum (geth)..."
-sudo apt-get install -y ethereum
-
-echo "All dependencies installed successfully!"
+# --- Final Instructions ---
+print_success "Setup complete!"
+print_info "To activate the virtual environment in the future, run:
+    source $VENV_DIR/bin/activate"
