@@ -28,17 +28,18 @@ echo "Using account: 0x$ACCOUNT_ADDRESS"
 
 # Start the node with mining and unlocked account
 nohup geth --datadir "$DATA_DIR" \
-  --networkid 1337 \
-  --http \
-  --http.port 8545 \
-  --http.api "eth,net,web3,personal,miner" \
-  --allow-insecure-unlock \
-  --unlock "0x$ACCOUNT_ADDRESS" \
-  --password "$PASSWORD_FILE" \
-  --mine \
-  --miner.etherbase="0x$ACCOUNT_ADDRESS" \
-  --nodiscover \
-  > geth.log 2>&1 &
+    --networkid 1337 \
+    --http \
+    --http.addr "0.0.0.0" \
+    --http.port 8545 \
+    --http.api "eth,net,web3,personal,miner" \
+    --allow-insecure-unlock \
+    --unlock "0x$ACCOUNT_ADDRESS" \
+    --password "$PASSWORD_FILE" \
+    --mine \
+    --miner.etherbase="0x$ACCOUNT_ADDRESS" \
+    --nodiscover \
+    > geth.log 2>&1 &
 
 
 echo "Node started in background. Check logs with: tail -f geth.log"
