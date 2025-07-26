@@ -1,3 +1,4 @@
 questionary
 eth-utils
 eth-hash[pycryptodome]
+inquirer
