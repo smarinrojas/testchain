@@ -21,8 +21,9 @@ def eth_to_wei(eth_str: str) -> str | None:
         # Use Decimal instead of float to handle monetary values and avoid precision errors.
         eth_decimal = Decimal(eth_str)
         wei_decimal = eth_decimal * Decimal("1e18")
-        # Return a string of the integer, which is what Geth expects.
-        return str(wei_decimal.to_integral_value())
+        # Convert to an integer string to avoid scientific notation (e.g., 1e+21),
+        # which Geth does not accept in genesis.json.
+        return str(wei_decimal.to_integral_value(rounding='ROUND_DOWN'))
     except InvalidOperation:
         print(f"Error: '{eth_str}' is not a valid ETH amount.")
         return None
