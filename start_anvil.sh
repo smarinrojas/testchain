@@ -1,0 +1,1 @@
+nohup anvil --host 0.0.0.0 --port 8545 --state state.json > anvil.log 2>&1 &
